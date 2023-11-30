@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className='container mx-auto'>
         <h1>Pixabay Image gallery</h1>
       </div>
     </>
