@@ -9,7 +9,8 @@ function App() {
   const [term, setTerm] = useState('');
 
   useEffect(() => {
-    fetch(``)
+    fetch(`https://pixabay.com/api/?key=${process.env.
+    REACT_APP_PIXABAY_API_KEY}&q=${term}yellow+flowers&image_type=photo&pretty=true`)
     .then(res => res.json())
     .then(data => {
       setImages(data.hits);
