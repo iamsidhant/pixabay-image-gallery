@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
 import ImageCard from './components/ImageCard'
 import ImageSearch from './components/ImageSearch'
@@ -10,11 +8,27 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [term, setTerm] = useState('');
 
+  useEffect(() => {
+    fetch(``)
+    .then(res => res.json())
+    .then(data => {
+      setImages(data.hits);
+      setIsLoading(false);
+    })
+    .catch(err => console.log(err));
+  }, [term]);
+
   return (
     <>
       <div className='container mx-auto'>
         <ImageSearch searchText ={(text) => setTerm(text)} />
-        <ImageCard key={images.id} image={image}/>
+        {!isLoading && images.length===0 && <h1 className='text-5xl text-center mx-auto mt-32'>No images found</h1>}
+
+        {isLoading ? <h1 className='text-6xl text-center mx-auto mt-32'>Loading...</h1> : <div className='grid grid-cols-3 gap-4'>
+          {images.map(image => (
+            <ImageCard key={images.id} image={image} />
+          ))}
+          </div>}
       </div>
     </>
   )
